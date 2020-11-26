@@ -111,19 +111,35 @@ class Home extends CI_Controller
 
 		if ($Recurrence[1] == "day")
 		{
+			$Timmer = 'D';
 			$count1 =  1;
 		}elseif($Recurrence[1] == "week")
 		{
+			$Timmer = 'W';
 			$count1 = 7;
 		}elseif($Recurrence[1] == "month")
 		{
+			$Timmer = 'M';
 			$count1 =  30;
 		}elseif($Recurrence[1] == "year")
 		{
+			$Timmer = 'Y';
 			$count1 = 365;
 		}
 		$count3 = round($days / $count1);
-		$data ['Recurrence'] = $count3 / $count;
+		$data ['Recurrence'] = ceil($count3 / $count);
+		
+		$period = new DatePeriod(
+		     new DateTime($start_Date),
+		     new DateInterval('P'.$count.$Timmer),
+		     new DateTime($End_Date)
+		);
+		foreach ($period as $key => $value) {
+    			$day = date('D', strtotime($value->format('Y-m-d'))); 
+    			$Total_Days[] = array($value->format('Y-m-d'),$day);
+			}
+			//var_dump($Total_Days);
+		$data['Dates'] = $Total_Days;
 		$this->load->view('ViewEvent',$data);
 	}
 	function DateDiffDays($start_Date,$End_Date)
