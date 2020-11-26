@@ -27,7 +27,24 @@
         <h3>Event Name : <?php echo $Events->fEventTitle ?></h3>
         <h3>Event Occurrences : <?php echo $Recurrence ?></h3>
     <br>
+        <th>Sr.No</th>
+        <th>dates</th>
+        <th>Day</th>
     </thead>
+    <tbody>
+        <?php
+                $counter = 1;
+               foreach ($Dates as $date) {
+                ?>
+                    <tr>
+                        <td><b><?php echo $counter++; ?></b></td>
+                        <td><?php echo $date[0]; ?></td>
+                        <td><?php echo $date[1]; ?></td>
+                    </tr>
+                <?php
+               }
+         ?>
+    </tbody>
     </table>
     </div>
 </div>
